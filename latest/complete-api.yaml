@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 2.0.0-feature-refactor-vbt1.3
+  version: 2.0.0-feature-refactor-vbt1.4
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -463,7 +463,7 @@ definitions:
         type: array
         items:
           $ref: 'InformationCarrierSource'
-        description: 'Source of an information carrier'
+        description: 'Source of an information carrier. An information carrier can be captured by multiple devices during an enrichment worfklow'
       coderId:
         type: string
         description: 'Identification of the coder which scanned or typed the information carrier'
@@ -747,7 +747,7 @@ definitions:
         type: array
         items:
           $ref: 'ProductSource'
-        description: 'Source which captured the product'
+        description: 'Source of a product. A product can be captured by multiple devices during an enrichment worfklow'
     required:
       - code
       - source
