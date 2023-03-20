@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 2.0.0
+  version: 2.1.0
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -873,7 +873,8 @@ definitions:
     enum:
       - FORWARD
       - RETURN
-    description: "FORWARD: mailpiece should be forwarded to a different address\r\nRETURN: mailpiece should be returned to the initial sender"
+      - FURTHER_PROCESSING
+    description: "FORWARD: mailpiece should be forwarded to a different address\r\nRETURN: mailpiece should be returned to the initial sender\r\nFURTHER_PROCESSING: transfer label inconclusive. Mailpiece should be sent to the last delivery office"
   ServiceRequest:
     type: object
     properties:
