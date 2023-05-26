@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 4.0.0-Feature-addMarker.1
+  version: 4.0.0-Feature-addMarker.2
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -479,7 +479,7 @@ definitions:
     required:
       - source
     additionalProperties: false
-    description: 'Identified and captured information carrier (e.g. barcodes, logos)'
+    description: "Identified and captured information carrier (e.g. barcodes, logos)\n\nEither symbology and value OR marker has to be filled"
   KeyWithConfidence:
     type: object
     properties:
