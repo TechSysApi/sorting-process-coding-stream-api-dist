@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 4.1.0
+  version: 5.0.0
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -368,6 +368,10 @@ definitions:
         type: string
         description: 'Key assigned to an image'
         maxLength: 200
+      groupId:
+        type: string
+        description: "Image Group ID;\nMultiple messages can refer to a single groupId\nin case there are multiple faces in the group."
+        maxLength: 200
       source:
         $ref: 'CodedImageSource'
         description: 'System / device which captured image'
@@ -387,6 +391,7 @@ definitions:
         description: 'Face of the parcel on which the image is located'
     required:
       - key
+      - groupId
       - source
       - mainFace
       - face
