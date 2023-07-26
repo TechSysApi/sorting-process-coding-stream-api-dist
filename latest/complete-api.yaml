@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.0.1
+  version: 5.1.0
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -554,6 +554,9 @@ definitions:
       mailpieceGlobalKey:
         type: string
         description: "Globally unique key for the mailpiece.\r\nOnly a single mailpiece may have the same Key and the Key is never to be reused again, allowing to identify every mailpiece\r\never processed.\r\nPrimary key 🔑"
+      simulation:
+        $ref: 'CodedSimulation'
+        description: 'If simulation is not null, this event belongs to a simulation and should not be considered productive.'
       coded:
         $ref: 'Coded'
         description: 'Mailpiece has been coded during the sorting process by either the automatic coding system (MMS) or at the manual coding system (MCS).'
@@ -881,6 +884,22 @@ definitions:
       - MILITARY
       - INSPECTION
     description: "FORWARD = forward mailpiece to another address\r\nFORWARD_POBOX = forward mailpiece from a postbox to a domicile address\r\nDELIVERY_SLOT = deliver mailpiece on a specific weekday / at a specific time window\r\nRETURN = the mailpiece has to returned to the sender\r\nDELAYED_PICKUP = the mailpiece has to retained at the postoffice for a specific time. After this time it must be picked up by the receiver.\r\nDELAYED_DELIVERY = the mailpiece has to retained at the postoffice for a specific time. After this time it must be delivered to the receiver.\r\nINTERNATIONAL = the mailpiece must be directed an export office\r\nMILITARY = Military address\r\nINSPECTION = inspect mailpiece via customs officer or sorting specialist"
+  CodedSimulationOrigin:
+    type: string
+    enum:
+      - SIMULATOR
+      - FRANKING_LICENSE
+      - LOCATION
+    description: "Describes how/where this event was simulated.\r\n- SIMULATOR: A simulator was used, no real mailpiece exists\r\n- FRANKING_LICENSE: The parcel belongs to a Franking license that is use for testing only\r\n- LOCATION: the location where that mailpiece was sorted is marked as a test location (eg. testing before go live)"
+  CodedSimulation:
+    type: object
+    properties:
+      origin:
+        $ref: 'CodedSimulationOrigin'
+    required:
+      - origin
+    additionalProperties: false
+    description: "Marks this event as a simulated event. This means that the mailpiece referenced in this message should not be considered a production mailpiece.\r\nIt is in the responsibility of the consumer to decide what to do with this information. For most use cases this event can be processed like\r\nany other event, but should be marks as a simulated event. Some actions should not be executed for simulated events\r\n(eg. no notification should be sent to the actual customer).\r\nSimulated events must not affect any non-simulated mailpieces in any way.\r\n\r\nThe Simulation object provides additional information about the purpose of this simulation."
   CodedSortingUnit:
     type: object
     properties:
