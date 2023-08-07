@@ -1,17 +1,17 @@
 swagger: '2.0'
 info:
   title: 'Sorting Process Coding Stream API'
-  description: 'coding event produced by the coding system (MMS/MCS) containing coded address or services.'
+  description: 'The coding system (MMS/MCS) produces a coding event containing coded addresses or services.'
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.1.0
+  version: 5.1.1
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
   logistics.sorting.process.coding.Mailpiece-event:
     get:
-      summary: 'coding event produced by the coding system (MMS/MCS)'
+      summary: 'Coding event produced by the coding system (MMS/MCS).'
       tags:
         - logistics.sorting.process.coding
       responses:
