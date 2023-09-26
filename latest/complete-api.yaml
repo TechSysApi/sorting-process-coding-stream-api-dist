@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.2.0-Feature-refactor.2
+  version: 5.2.0-Feature-refactor.3
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -91,6 +91,9 @@ definitions:
       state:
         $ref: 'CodedPersonalizedAddressState'
         description: 'Indicates state of a validated person living at a specific address'
+      undeliverable:
+        $ref: 'CodedUndeliverableReason'
+        description: 'Reason for not being able to deliver mailpiece due to the personalized address state (e.g. NIXIE)'
     required:
       - source
     additionalProperties: false
@@ -105,24 +108,15 @@ definitions:
       - REJECTED_UNRESOLVABLE
       - NO_ADDRESS_ON_MAILPIECE
     description: "NO_IMAGE = Technical problem: e.g. images are black, too dark / white or no information is visible. The image quality does not allow reading of the address.\nPOOR_IMAGE = Insufficient image quality or poor contrast. The image quality does not allow reading of the address.\nREJECTED_TIMEOUT = Reject due to a timeout. In this case the solution doesn't deliver a result within a specific time.\nREJECTED_TECHNICAL = Reject due to technical problems (e.g. black images, poor resolution, blurred images, only partial image build up ).\nREJECTED_UNRESOLVABLE = Reject due to unresolved mailpiece (e.g. no address visible on the image, only a part of the sender visible, recipient coding cannot be done).\nNO_ADDRESS_ON_MAILPIECE = Reject because mailpiece either has no visible address, is damaged or in case it is not a Kleinware doesn't contain a barcode."
-  CodedCodingReasonType:
-    type: string
-    enum:
-      - REJECT
-      - STATISTIC
-    description: "REJECT = Reject that may happen during coding process. They can be discharged as special sorts by the sorting system.\nSTATISTIC = Adjustments that may happen during coding process. This is only for statistical purposes."
   CodedCodingReason:
     type: object
     properties:
-      type:
-        $ref: 'CodedCodingReasonType'
-        description: 'Type to define if it is a reject or statistical coding reason.'
-      codingStation:
-        $ref: 'CodedCodingStation'
-        description: 'Station where the coding reason was thrown.'
+      codingStationType:
+        $ref: 'CodedCodingStationType'
+        description: 'Source of the coding reason.'
       reason:
         $ref: 'CodedCodingReasonCase'
-        description: 'Case, why a coding reason was thrown.'
+        description: 'Case of the coding reason.'
     additionalProperties: false
   DateTime:
     type: string
@@ -159,7 +153,7 @@ definitions:
         description: 'The images captured during coding'
     additionalProperties: false
     description: 'Information captured by the coding systems during coding'
-  CodedCodingStation:
+  CodedCodingStationType:
     type: string
     enum:
       - RECOGNITION
@@ -497,15 +491,15 @@ definitions:
       - STATE_RECOGNIZED_CHURCH
       - FOREIGN_LEGAL_FORM_BRANCH
       - FOREIGN_COUNTRY_EMBASSY
-      - INERNATIONAL_ORGANISATION
+      - INERNATIONAL_ORGANIZATION
       - FEDERAL_WORKS
       - CANTONAL_WORKS
       - DISTRICT_WORKS
       - MUNICIPAL_WORKS
       - PUBLIC_ENTITY_WORKS
-      - POSTAL_ORGANISATIONAL_UNITS
+      - POSTAL_ORGANIZATIONAL_UNITS
       - SUBSIDIARIES
-    description: "Rechtsform, wird nur bei Geschäftspersonen abgefüllt\r\nINDIVIDUAL = Einzelfirma\r\nSIMPLE_PARTNERSHIP = Einfache Gesellschaft\r\nGENERAL_PARTNERSHIP = Kollektivgesellschaft\r\nLIMITED_PARTNERSHIP = Kommanditgesellschaft\r\nPARTNERSHIP_LIMITED_BY_SHARES = Kommanditaktiengesellschaft\r\nPUBLIC_LIMITED_COMPANY = Aktiengesellschaft/LTD\r\nPRIVATE_LIMITED_COMPANY = GMBH/SARL\r\nCOOPERATIVE = Genossenschaft\r\nASSOCIATION = Verein\r\nFOUNDATION = Stiftung\r\nBRANCH_OF_FOREIGN_AG_LTD =\r\nBRANCH_OF_FOREIGN_SARL = Ausländische GMBH-Filiale;SARL\r\nFEDERAL_ADMINISTRATION = Verwaltung des Bundes\r\nCANTONAL_ADMINISTRATION = Verwaltung des Kantons\r\nDISTRICT_ADMINISTRATION = Verwaltung des Bezirks\r\nMUNICIPAL_ADMINISTRATION = Verwaltung der Gemeinde\r\nPUBLIC_ENTITY_ADMINISTRATION = öffentliche Körperschaft (Verw.)\r\nSTATE_RECOGNIZED_CHURCH = Staatlich anerkannte Kirche\r\nFOREIGN_LEGAL_FORM_BRANCH = Ausländische Rechtsform (Filiale)\r\nFOREIGN_COUNTRY_EMBASSY = Ausländischer Staat (Botschaft)\r\nINERNATIONAL_ORGANISATION = Internationale Organisation\r\nFEDERAL_WORKS = Betriebe des Bundes\r\nCANTONAL_WORKS = Betriebe des Kantons\r\nDISTRICT_WORKS = Betriebe des Bezirks\r\nMUNICIPAL_WORKS = Betriebe der Gemeinde\r\nPUBLIC_ENTITY_WORKS = öffentliche Körperschaft (Betriebe)\r\nPOSTAL_ORGANISATIONAL_UNITS = Organisaitonseinheit der Post\r\nSUBSIDIARIES = Konzerngesellschaft der Post"
+    description: "Rechtsform, wird nur bei Geschäftspersonen abgefüllt\r\nINDIVIDUAL = Einzelfirma\r\nSIMPLE_PARTNERSHIP = Einfache Gesellschaft\r\nGENERAL_PARTNERSHIP = Kollektivgesellschaft\r\nLIMITED_PARTNERSHIP = Kommanditgesellschaft\r\nPARTNERSHIP_LIMITED_BY_SHARES = Kommanditaktiengesellschaft\r\nPUBLIC_LIMITED_COMPANY = Aktiengesellschaft/LTD\r\nPRIVATE_LIMITED_COMPANY = GMBH/SARL\r\nCOOPERATIVE = Genossenschaft\r\nASSOCIATION = Verein\r\nFOUNDATION = Stiftung\r\nBRANCH_OF_FOREIGN_AG_LTD =\r\nBRANCH_OF_FOREIGN_SARL = Ausländische GMBH-Filiale;SARL\r\nFEDERAL_ADMINISTRATION = Verwaltung des Bundes\r\nCANTONAL_ADMINISTRATION = Verwaltung des Kantons\r\nDISTRICT_ADMINISTRATION = Verwaltung des Bezirks\r\nMUNICIPAL_ADMINISTRATION = Verwaltung der Gemeinde\r\nPUBLIC_ENTITY_ADMINISTRATION = öffentliche Körperschaft (Verw.)\r\nSTATE_RECOGNIZED_CHURCH = Staatlich anerkannte Kirche\r\nFOREIGN_LEGAL_FORM_BRANCH = Ausländische Rechtsform (Filiale)\r\nFOREIGN_COUNTRY_EMBASSY = Ausländischer Staat (Botschaft)\r\nINERNATIONAL_ORGANIZATION = Internationale Organisation\r\nFEDERAL_WORKS = Betriebe des Bundes\r\nCANTONAL_WORKS = Betriebe des Kantons\r\nDISTRICT_WORKS = Betriebe des Bezirks\r\nMUNICIPAL_WORKS = Betriebe der Gemeinde\r\nPUBLIC_ENTITY_WORKS = öffentliche Körperschaft (Betriebe)\r\nPOSTAL_ORGANIZATIONAL_UNITS = Organisaitonseinheit der Post\r\nSUBSIDIARIES = Konzerngesellschaft der Post"
   CodedLocality:
     type: object
     properties:
@@ -651,9 +645,6 @@ definitions:
       state:
         $ref: 'CodedPersonState'
         description: 'Indicates state of a validated person'
-      undeliverable:
-        $ref: 'CodedUndeliverableReason'
-        description: 'Indicates reason why mailpiece is not deliverable due to the person state'
       personAddressKey:
         $ref: 'CodedKeyWithConfidence'
         description: 'Identifies a person at a domiclie address (AMP-Key)'
@@ -1011,7 +1002,7 @@ definitions:
       rejectReason:
         $ref: 'CodedRejectReason'
         description: "Reject that may happen during coding process. They can be discharged as special sorts by the sorting system.\n\nWill be removed at the next update! Please replace it with the codingReason below."
-      codingReason:
+      codingReasons:
         type: array
         items:
           $ref: 'CodedCodingReason'
