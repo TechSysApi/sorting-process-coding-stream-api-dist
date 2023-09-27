@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.2.0-Feature-refactor.5
+  version: 5.2.0-Feature-refactor.6
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -1001,7 +1001,7 @@ definitions:
         description: 'Indicates if more image based coding is possible.'
       rejectReason:
         $ref: 'CodedRejectReason'
-        description: "Reject that may happen during coding process. They can be discharged as special sorts by the sorting system.\n\nWill be removed at the next update! Please replace it with the codingReason below."
+        description: "Reject that may happen during coding process. They can be discharged as special sorts by the sorting system.\n\nDEPRECATED: Will be removed at the next update! Please replace it with the codingReason below."
       codingReasons:
         type: array
         items:
