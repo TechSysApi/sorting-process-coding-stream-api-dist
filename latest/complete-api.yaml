@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.2.0-Feature-refactor.3
+  version: 5.2.0-Feature-refactor.5
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -93,7 +93,7 @@ definitions:
         description: 'Indicates state of a validated person living at a specific address'
       undeliverable:
         $ref: 'CodedUndeliverableReason'
-        description: 'Reason for not being able to deliver mailpiece due to the personalized address state (e.g. NIXIE)'
+        description: 'Mailpiece is not deliverable to the recipient because of the personalized address state (e.g. NIXIE). Indicates the reason of the personalized address state.'
     required:
       - source
     additionalProperties: false
@@ -113,10 +113,10 @@ definitions:
     properties:
       codingStationType:
         $ref: 'CodedCodingStationType'
-        description: 'Source of the coding reason.'
+        description: 'Type of the coding station for the coding reason.'
       reason:
         $ref: 'CodedCodingReasonCase'
-        description: 'Case of the coding reason.'
+        description: 'Case, why a coding reason was thrown.'
     additionalProperties: false
   DateTime:
     type: string
@@ -1040,7 +1040,7 @@ definitions:
         description: 'Detailed insights in the internal workflow steps which ocurred to deliver the information in this event'
       sortingProcess:
         $ref: 'CodedSortingProcess'
-        description: 'Defines the sorting process.'
+        description: 'Defines how and where the mailpiece was sorted.'
     required:
       - timestamp
       - processingItemId
