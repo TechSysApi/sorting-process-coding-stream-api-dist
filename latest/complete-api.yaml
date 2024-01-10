@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.3.0-Feature-codingInstructions.3
+  version: 5.3.0-Feature-codingInstructions.4
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -442,6 +442,7 @@ definitions:
       confidence:
         $ref: 'Int'
         description: "Confidence of an information carrier.\nThe range is from 0 to 100. 0 is the lowest possible confidence and 100 the highest."
+        minimum: 0
     required:
       - producer
       - instance
