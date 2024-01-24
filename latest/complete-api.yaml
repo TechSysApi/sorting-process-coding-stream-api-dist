@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.3.0
+  version: 5.4.0-Feature-appliedCodingRuleConfidence.1
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -677,10 +677,14 @@ definitions:
       personAddressKey:
         $ref: 'CodedKeyWithConfidence'
         description: 'Identifies a person at a domiclie address (AMP-Key)'
+      appliedCodingRuleConfidence:
+        $ref: 'Int'
+        description: "Defines the confidence of the addressee after applying the coding rules to decide if a service can be executed (e.g. notify addressee).\nThe value is either 0 or 1."
     required:
       - personType
       - state
       - personAddressKey
+      - appliedCodingRuleConfidence
     additionalProperties: false
     description: 'Information related to the person of an address'
   CodedPersonalizedAddressState:
