@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.3.0
+  version: 5.4.0
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -107,6 +107,12 @@ definitions:
       - NO_CODING
       - BARCODE_CODING
     description: "ADDRESS_CODING   The coding system needs to trigger an address coding workflow.\nSERVICE_CODING   The coding system needs to trigger a service coding workflow.\nTRANSFER_CODING  The coding system needs to trigger a transfer coding workflow.\nNO_CODING        The coding system needs to trigger a no coding workflow.\nBARCODE_CODING   The coding system needs to trigger a barcode coding workflow."
+  CodedCodingMatch:
+    type: string
+    enum:
+      - PERFECT_MATCH
+      - NO_PERFECT_MATCH
+    description: "PERFECT_MATCH = The coding system is convinced that the correct addressee was coded and matched with the master data. This includes the names and the key of the addressee.\nNO_PERFECT_MATCH = The coding system is not 100% convinced that the correct addressee was found and matched with the best available result from the master data. This includes the names and the key of the addressee."
   CodedCodingReasonCase:
     type: string
     enum:
@@ -677,10 +683,14 @@ definitions:
       personAddressKey:
         $ref: 'CodedKeyWithConfidence'
         description: 'Identifies a person at a domiclie address (AMP-Key)'
+      codingMatch:
+        $ref: 'CodedCodingMatch'
+        description: 'Shows how sure the coding system is compared between the addressee on the parcel and in the master data.'
     required:
       - personType
       - state
       - personAddressKey
+      - codingMatch
     additionalProperties: false
     description: 'Information related to the person of an address'
   CodedPersonalizedAddressState:
