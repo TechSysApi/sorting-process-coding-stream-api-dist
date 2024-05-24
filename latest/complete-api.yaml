@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.7.0
+  version: 5.8.0-feature-sortingCycleInitiatorSourceId.3
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -1090,6 +1090,9 @@ definitions:
       sortingProcess:
         $ref: 'CodedSortingProcess'
         description: 'Defines how and where the mailpiece was sorted.'
+      sortingCycleInitiatorSourceId:
+        type: string
+        description: "The ID of the system that initiated the sorting cycle\r\n(e.g. ID of the DWS tunnel).\r\nACTION: Set as mandatory as soon as SDDM provides the information"
     required:
       - timestamp
       - processingItemId
