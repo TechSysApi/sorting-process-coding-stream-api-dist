@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.7.0
+  version: 5.8.0-feature-external-carrier-id.1
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -327,6 +327,20 @@ definitions:
       - instance
     additionalProperties: false
     description: "Describes which system provided the information. This is meant to be used for diagnostics\nand should not be used to infer any business cases."
+  CodedExternalCarrierId:
+    type: object
+    properties:
+      mailpieceId:
+        type: string
+        description: 'Identifier of the mailpiece from the external carrier.'
+      type:
+        $ref: 'ExternalCarrierType'
+        description: 'Type of the external carrier id.'
+    required:
+      - mailpieceId
+      - type
+    additionalProperties: false
+    description: 'Mailpiece identifier of external carrier. Contains the identifier and the type of the external carrier id.'
   CodedFace:
     type: string
     enum:
@@ -368,6 +382,11 @@ definitions:
         items:
           type: string
         description: 'Contains the list of identifiers to track mix mail with a data matrix code (DMC80).'
+      externalCarrierIds:
+        type: array
+        items:
+          $ref: 'CodedExternalCarrierId'
+        description: 'Contains the list of identifier and type from external carriers like Fedex.'
     additionalProperties: false
     description: 'Contains a list of logistic or technical identifiers to track a mail item within a specific context.'
   CodedImageProducer:
@@ -1106,3 +1125,7 @@ definitions:
       - REQUIRED
       - CONFIRMED
     description: "NOT_REQUIRED = No confirmation from the sorting system is required.\nREQUIRED = Confirmation from the sorting system is required.\nCONFIRMED = The required coding confirmation is confirmed from the sorting system."
+  ExternalCarrierType:
+    type: string
+    enum:
+      - FEDEX
