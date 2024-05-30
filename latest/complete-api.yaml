@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.8.0-feature-move-coderID.1
+  version: 5.8.0-feature-move-coderID.2
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -81,8 +81,7 @@ definitions:
         description: 'Source of the address'
       coderId:
         type: string
-        description: 'Identification of the coder which typed the address'
-        maxLength: 50
+        description: 'Identification of the coder which processed the mailpiece'
       appliedCodingRules:
         type: array
         items:
@@ -322,9 +321,6 @@ definitions:
       instance:
         type: string
         description: 'Instance of the device'
-      coderId:
-        type: string
-        description: 'Identification of the coder which processed the mailpiece'
     required:
       - producer
       - instance
@@ -482,8 +478,7 @@ definitions:
         description: 'Source of an information carrier. An information carrier can be captured by multiple devices during an enrichment worfklow'
       coderId:
         type: string
-        description: 'Identification of the coder which scanned or typed the information carrier. DEPRECATED, is replaced by coderId in source of coded event. Will be removed soon.'
-        maxLength: 50
+        description: 'Identification of the coder which processed the mailpiece'
     required:
       - source
     additionalProperties: false
@@ -769,6 +764,9 @@ definitions:
         items:
           $ref: 'CodedProductSource'
         description: 'Source of a product. A product can be captured by multiple devices during an enrichment worfklow'
+      coderId:
+        type: string
+        description: 'Identification of the coder which processed the mailpiece'
     required:
       - code
       - source
