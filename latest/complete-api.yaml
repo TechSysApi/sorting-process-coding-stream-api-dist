@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.8.0-feature-move-coderID.3
+  version: 5.8.0-feature-move-coderID.4
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
