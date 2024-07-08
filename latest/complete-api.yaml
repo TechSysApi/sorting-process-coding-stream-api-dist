@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.7.1
+  version: 5.7.2-feature-update-jenkins-config.1
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
