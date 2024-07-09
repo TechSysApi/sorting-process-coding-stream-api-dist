@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.8.0-feature-move-coderID.7
+  version: 5.8.0-feature-move-coderID.8
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -44,7 +44,7 @@ definitions:
         description: 'Sorting unit where the mailpiece was being processed'
       coderId:
         type: string
-        description: 'Identification of the coder which processed the mailpiece'
+        description: 'Anonymous identification of the coder who captured the address'
     required:
       - producer
       - instance
@@ -82,10 +82,6 @@ definitions:
       source:
         $ref: 'CodedAddressSource'
         description: 'Source of the address'
-      coderId:
-        type: string
-        description: 'Identification of the coder which scanned or typed the information carrier. @deprecated is replaced by coderId in CodedAddressSource. Will be removed soon.'
-        maxLength: 50
       appliedCodingRules:
         type: array
         items:
@@ -458,7 +454,7 @@ definitions:
         minimum: 0
       coderId:
         type: string
-        description: 'Identification of the coder which processed the mailpiece'
+        description: 'Anonymous identification of the coder who captured the information carrier'
     required:
       - producer
       - instance
@@ -483,10 +479,6 @@ definitions:
         items:
           $ref: 'CodedInformationCarrierSource'
         description: 'Source of an information carrier. An information carrier can be captured by multiple devices during an enrichment worfklow'
-      coderId:
-        type: string
-        description: 'Identification of the coder which scanned or typed the information carrier. @deprecated is replaced by coderId in CodedInformationCarrierSource. Will be removed soon.'
-        maxLength: 50
     required:
       - source
     additionalProperties: false
@@ -753,7 +745,7 @@ definitions:
         description: 'Sorting unit where the mailpiece was being processed'
       coderId:
         type: string
-        description: 'Identification of the coder which processed the mailpiece'
+        description: 'Anonymous identification of the coder who captured the product'
     required:
       - producer
       - origin
@@ -775,9 +767,6 @@ definitions:
         items:
           $ref: 'CodedProductSource'
         description: 'Source of a product. A product can be captured by multiple devices during an enrichment worfklow'
-      coderId:
-        type: string
-        description: 'Identification of the coder which processed the mailpiece'
     required:
       - code
       - source
