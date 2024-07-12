@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.8.0-feature-external-carrier-id.1
+  version: 5.9.0-feature-external-carrier-id.2
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -42,6 +42,9 @@ definitions:
       sortingUnit:
         $ref: 'CodedSortingUnit'
         description: 'Sorting unit where the mailpiece was being processed'
+      coderId:
+        type: string
+        description: 'Anonymous identification of the coder who captured the address'
     required:
       - producer
       - instance
@@ -79,10 +82,6 @@ definitions:
       source:
         $ref: 'CodedAddressSource'
         description: 'Source of the address'
-      coderId:
-        type: string
-        description: 'Identification of the coder which typed the address'
-        maxLength: 50
       appliedCodingRules:
         type: array
         items:
@@ -216,7 +215,7 @@ definitions:
       - INTERNATIONAL
       - MILITARY
       - INTERNAL_POSTCODE
-    description: "DOMICILE = Domiziladresse\r\nPICK_POST = Pickpost\r\nPARCEL_TERMINAL = myPost24\r\nPOBOX = Post Office Box (Postfach)\r\nPOSTE_RESTANTE = Retain at swiss post (Postlagernd)\r\nCOMPANY_POSTCODE = Company Postcode indicates (FirmenPLZ)\r\nINTERNATIONAL = International address (Export)\r\nMILITARY = Military address\r\nINTERNAL_POSTCODE = Swiss post internal postcode"
+    description: "DOMICILE = Domiziladresse\r\nPICKPOST = Pickpost\r\nPARCEL_TERMINAL = myPost24\r\nPOBOX = Post Office Box (Postfach)\r\nPOSTE_RESTANTE = Retain at swiss post (Postlagernd)\r\nCOMPANY_POSTCODE = Company Postcode indicates (FirmenPLZ)\r\nINTERNATIONAL = International address (Export)\r\nMILITARY = Military address\r\nINTERNAL_POSTCODE = Swiss post internal postcode"
   CodedDeliveryPoint:
     type: object
     properties:
@@ -472,6 +471,9 @@ definitions:
         $ref: 'Int'
         description: "Confidence of an information carrier.\nThe range is from 0 to 100. 0 is the lowest possible confidence and 100 the highest."
         minimum: 0
+      coderId:
+        type: string
+        description: 'Anonymous identification of the coder who captured the information carrier'
     required:
       - producer
       - instance
@@ -496,10 +498,6 @@ definitions:
         items:
           $ref: 'CodedInformationCarrierSource'
         description: 'Source of an information carrier. An information carrier can be captured by multiple devices during an enrichment worfklow'
-      coderId:
-        type: string
-        description: 'Identification of the coder which scanned or typed the information carrier'
-        maxLength: 50
     required:
       - source
     additionalProperties: false
@@ -764,6 +762,9 @@ definitions:
       sortingUnit:
         $ref: 'CodedSortingUnit'
         description: 'Sorting unit where the mailpiece was being processed'
+      coderId:
+        type: string
+        description: 'Anonymous identification of the coder who captured the product'
     required:
       - producer
       - origin
