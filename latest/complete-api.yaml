@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.10.0-feature-coding-reason-mailpiece-clinic.1
+  version: 5.10.0-feature-coding-reason-mailpiece-clinic.6
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -620,11 +620,6 @@ definitions:
       - BULK
       - BULK_SCANNING
     description: "REJECT Component where a coder manually captures barcodes and enters address information\nBULK   Component where barcodes, weight and dimensions and address information for bulky goods are captured or entered (manual or partially automated)\nBULK_SCANNING Component where a coder manually captures barcodes and other specific information for bulky goods"
-  CodedManualRejectReason:
-    type: string
-    enum:
-      - NO_ADDRESS_ON_MAILPIECE
-    description: 'NO_ADDRESS_ON_MAILPIECE = Reject because mailpiece either has no visible address, is damaged or in case it is not a Kleinware doesn''t contain a barcode.'
   CodedMarker:
     type: string
     enum:
@@ -788,12 +783,6 @@ definitions:
       - source
     additionalProperties: false
     description: 'Identified and validated product (old PRZL, "Zusatzleistung")'
-  CodedRecognitionRejectReason:
-    type: string
-    enum:
-      - NO_IMAGE
-      - POOR_IMAGE
-    description: "NO_IMAGE = Technical problem: e.g. images are black, too dark / white or no information is visible. The image quality does not allow reading of the address.\nPOOR_IMAGE = Insufficient image quality or poor contrast. The image quality does not allow reading of the address."
   CodedRecognitionStep:
     type: string
     enum:
@@ -802,19 +791,6 @@ definitions:
       - ADDRESS
       - ADDRESS_RETRY
     description: "INFORMATION_CARRIER Component which reads information carriers other than barcodes\nBARCODE  Component which reads / captures barcodes on an image\nADDRESS  Component which reads address elements on an image\nADDRESS_RETRY  Component which reads address elements on an image after providing information from other enrichment step (e.g. VCS ROI)"
-  CodedRejectReason:
-    type: object
-    properties:
-      recognition:
-        $ref: 'CodedRecognitionRejectReason'
-        description: 'Cases that may occur in OCR.'
-      video:
-        $ref: 'CodedVideoRejectReason'
-        description: 'Cases that may occur in VCS'
-      manual:
-        $ref: 'CodedManualRejectReason'
-        description: 'Cases that may occur in MCS.'
-    additionalProperties: false
   CodedReturnReasonType:
     type: string
     enum:
@@ -1041,13 +1017,6 @@ definitions:
       - EXTERNAL_POSTCODE
       - EXTERNAL_ADDRESS
     description: "INTERNAL_REGION Component VCS CH: Task in the video coding system where the coder detects address region of interest (ROI) elements on an image\nINTERNAL_POSTCODE Component VCS CH: Task in the video coding system where the coder enters the postcode based on an address region of interest (ROI) image\nINTERNAL_ADDRESS Component VCS CH: Task in the video coding system where the coder enters the recipient address based on an address region of interest (ROI) image\nEXTERNAL_REGION Component VCS Offshore: Task in the video coding system where the coder detects address region of interest (ROI) elements on an image\nEXTERNAL_POSTCODE Component VCS Offshore: Task in the video coding system where the coder enters the postcode based on an address region of interest (ROI) image\nEXTERNAL_ADDRESS Component VCS Offshore: Task in the video coding system where the coder enters the recipient address based on an address region of interest (ROI) image"
-  CodedVideoRejectReason:
-    type: string
-    enum:
-      - REJECTED_TIMEOUT
-      - REJECTED_TECHNICAL
-      - REJECTED_UNRESOLVABLE
-    description: "REJECTED_TIMEOUT = Reject due to a timeout. In this case the solution doesn't deliver a result within a specific time.\nREJECTED_TECHNICAL = Reject due to technical problems (e.g. black images, poor resolution, blurred images, only partial image build up ).\nREJECTED_UNRESOLVABLE = Reject due to unresolved mailpiece (e.g. no address visible on the image, only a part of the sender visible, recipient coding cannot be done)."
   CodedWorkflow:
     type: object
     properties:
@@ -1059,9 +1028,6 @@ definitions:
       maxImageBasedCodingReached:
         type: boolean
         description: 'Indicates if more image based coding is possible.'
-      rejectReason:
-        $ref: 'CodedRejectReason'
-        description: "Reject that may happen during coding process. They can be discharged as special sorts by the sorting system.\n\nDEPRECATED: Will be removed at the next update! Please replace it with the codingReason below."
       codingReasons:
         type: array
         items:
