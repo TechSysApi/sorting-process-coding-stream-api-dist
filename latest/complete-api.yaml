@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.8.0-feature-preknowledge-flag.2
+  version: 5.11.0-feature-preknowledge-flag.3
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -45,6 +45,9 @@ definitions:
       sortingUnit:
         $ref: 'CodedSortingUnit'
         description: 'Sorting unit where the mailpiece was being processed'
+      coderId:
+        type: string
+        description: 'Anonymous identification of the coder who captured the address'
     required:
       - producer
       - instance
@@ -83,10 +86,6 @@ definitions:
       source:
         $ref: 'CodedAddressSource'
         description: 'Source of the address'
-      coderId:
-        type: string
-        description: 'Identification of the coder which typed the address'
-        maxLength: 50
       appliedCodingRules:
         type: array
         items:
@@ -140,7 +139,8 @@ definitions:
       - NO_RECIPIENT_IN_MASTER_DATA
       - AMBIGUOUS_ADDRESSED_RECIPIENT
       - NO_ADDRESS_ON_IMAGE
-    description: "NO_IMAGE = Technical problem: e.g. images are black, too dark / white or no information is visible. The image quality does not allow reading of the address.\nPOOR_IMAGE = Insufficient image quality or poor contrast. The image quality does not allow reading of the address.\nREJECTED_TIMEOUT = Reject due to a timeout. In this case the solution doesn't deliver a result within a specific time.\nREJECTED_TECHNICAL = Reject due to technical problems (e.g. black images, poor resolution, blurred images, only partial image build up ).\nREJECTED_UNRESOLVABLE = Reject due to unresolved mailpiece (e.g. no address visible on the image, only a part of the sender visible, recipient coding cannot be done).\nNO_ADDRESS_ON_MAILPIECE = Reject because mailpiece either has no visible address, is damaged or in case it is not a Kleinware doesn't contain a barcode.\nNO_MAIN_IMAGE = Image with the main barcode is missing and/or the address ROI cannot be found.\nCORRECTED_STREET = Streetname was corrected due to the address in master data and due to other validated elements in the address.\nCORRECTED_HOUSE_NUMBER = House no. was not found in the master data and was corrected.\nNO_HOUSE_NUMBER = Missing house no. or house no. suffix was corrected due to the address in master data and due to other validated elements in the address.\nCORRECTED_POSTCODE = Postcode was corrected due to the address in master data and due to other validated elements in the address.\nCORRECTED_CITY = City was corrected due to the address in master data and due to other validated elements in the address.\nADDED_CITY_ELEMENTS = City was corrected due to the address in master data and due to other validated elements in the address and was adjusted with further elements (E.g. Yverdon --> Yverdon-les-Bains).\nREJECTED_LOOPING = Rejected due to looping in a center.\nREJECTED_SENDER_SINGLE_ORDER = Rejected due to a sender single order.\nREJECTED_BY_USER = Rejected by user to cancel coding (E.g. if a parcel needs to be removed from the the sorting-coding workflow).\nCO_ADDRESS = A C/O-address was found on the mailpiece.\nNO_RECIPIENT_IN_MASTER_DATA = The Recipient on the mailpiece was not found in the master data.\nAMBIGUOUS_ADDRESSED_RECIPIENT = Multiple Recipients on the mailpiece were found.\nNO_ADDRESS_ON_IMAGE = No address can be found on the image due to black or white images."
+      - NO_USER_LOGGED_IN
+    description: "NO_IMAGE = Technical problem: e.g. images are black, too dark / white or no information is visible. The image quality does not allow reading of the address.\nPOOR_IMAGE = Insufficient image quality or poor contrast. The image quality does not allow reading of the address.\nREJECTED_TIMEOUT = Reject due to a timeout. In this case the solution doesn't deliver a result within a specific time.\nREJECTED_TECHNICAL = Reject due to technical problems (e.g. black images, poor resolution, blurred images, only partial image build up ).\nREJECTED_UNRESOLVABLE = Reject due to unresolved mailpiece (e.g. no address visible on the image, only a part of the sender visible, recipient coding cannot be done).\nNO_ADDRESS_ON_MAILPIECE = Reject because mailpiece either has no visible address, is damaged or in case it is not a Kleinware doesn't contain a barcode.\nNO_MAIN_IMAGE = Image with the main barcode is missing and/or the address ROI cannot be found.\nCORRECTED_STREET = Streetname was corrected due to the address in master data and due to other validated elements in the address.\nCORRECTED_HOUSE_NUMBER = House no. was not found in the master data and was corrected.\nNO_HOUSE_NUMBER = Missing house no. or house no. suffix was corrected due to the address in master data and due to other validated elements in the address.\nCORRECTED_POSTCODE = Postcode was corrected due to the address in master data and due to other validated elements in the address.\nCORRECTED_CITY = City was corrected due to the address in master data and due to other validated elements in the address.\nADDED_CITY_ELEMENTS = City was corrected due to the address in master data and due to other validated elements in the address and was adjusted with further elements (E.g. Yverdon --> Yverdon-les-Bains).\nREJECTED_LOOPING = Rejected due to looping in a center.\nREJECTED_SENDER_SINGLE_ORDER = Rejected due to a sender single order.\nREJECTED_BY_USER = Rejected by user to cancel coding (E.g. if a parcel needs to be removed from the the sorting-coding workflow).\nCO_ADDRESS = A C/O-address was found on the mailpiece.\nNO_RECIPIENT_IN_MASTER_DATA = The Recipient on the mailpiece was not found in the master data.\nAMBIGUOUS_ADDRESSED_RECIPIENT = Multiple Recipients on the mailpiece were found.\nNO_ADDRESS_ON_IMAGE = No address can be found on the image due to black or white images.\nNO_USER_LOGGED_IN = No user is logged in and therefore the enrichment has been rejected."
   CodedCodingReason:
     type: object
     properties:
@@ -220,7 +220,7 @@ definitions:
       - INTERNATIONAL
       - MILITARY
       - INTERNAL_POSTCODE
-    description: "DOMICILE = Domiziladresse\r\nPICK_POST = Pickpost\r\nPARCEL_TERMINAL = myPost24\r\nPOBOX = Post Office Box (Postfach)\r\nPOSTE_RESTANTE = Retain at swiss post (Postlagernd)\r\nCOMPANY_POSTCODE = Company Postcode indicates (FirmenPLZ)\r\nINTERNATIONAL = International address (Export)\r\nMILITARY = Military address\r\nINTERNAL_POSTCODE = Swiss post internal postcode"
+    description: "DOMICILE = Domiziladresse\r\nPICKPOST = Pickpost\r\nPARCEL_TERMINAL = myPost24\r\nPOBOX = Post Office Box (Postfach)\r\nPOSTE_RESTANTE = Retain at swiss post (Postlagernd)\r\nCOMPANY_POSTCODE = Company Postcode indicates (FirmenPLZ)\r\nINTERNATIONAL = International address (Export)\r\nMILITARY = Military address\r\nINTERNAL_POSTCODE = Swiss post internal postcode"
   CodedDeliveryPoint:
     type: object
     properties:
@@ -331,6 +331,20 @@ definitions:
       - instance
     additionalProperties: false
     description: "Describes which system provided the information. This is meant to be used for diagnostics\nand should not be used to infer any business cases."
+  CodedExternalCarrierId:
+    type: object
+    properties:
+      mailpieceId:
+        type: string
+        description: 'Identifier of the mailpiece from the external carrier.'
+      type:
+        $ref: 'ExternalCarrierType'
+        description: 'Type of the external carrier id.'
+    required:
+      - mailpieceId
+      - type
+    additionalProperties: false
+    description: 'Mailpiece identifier of external carrier. Contains the identifier and the type of the external carrier id.'
   CodedFace:
     type: string
     enum:
@@ -372,6 +386,11 @@ definitions:
         items:
           type: string
         description: 'Contains the list of identifiers to track mix mail with a data matrix code (DMC80).'
+      externalCarrierIds:
+        type: array
+        items:
+          $ref: 'CodedExternalCarrierId'
+        description: 'Contains the list of identifier and type from external carriers like Fedex.'
     additionalProperties: false
     description: 'Contains a list of logistic or technical identifiers to track a mail item within a specific context.'
   CodedImageProducer:
@@ -457,6 +476,9 @@ definitions:
         $ref: 'Int'
         description: "Confidence of an information carrier.\nThe range is from 0 to 100. 0 is the lowest possible confidence and 100 the highest."
         minimum: 0
+      coderId:
+        type: string
+        description: 'Anonymous identification of the coder who captured the information carrier'
     required:
       - producer
       - instance
@@ -481,10 +503,6 @@ definitions:
         items:
           $ref: 'CodedInformationCarrierSource'
         description: 'Source of an information carrier. An information carrier can be captured by multiple devices during an enrichment worfklow'
-      coderId:
-        type: string
-        description: 'Identification of the coder which scanned or typed the information carrier'
-        maxLength: 50
     required:
       - source
     additionalProperties: false
@@ -749,6 +767,9 @@ definitions:
       sortingUnit:
         $ref: 'CodedSortingUnit'
         description: 'Sorting unit where the mailpiece was being processed'
+      coderId:
+        type: string
+        description: 'Anonymous identification of the coder who captured the product'
     required:
       - producer
       - origin
@@ -1110,3 +1131,7 @@ definitions:
       - REQUIRED
       - CONFIRMED
     description: "NOT_REQUIRED = No confirmation from the sorting system is required.\nREQUIRED = Confirmation from the sorting system is required.\nCONFIRMED = The required coding confirmation is confirmed from the sorting system."
+  ExternalCarrierType:
+    type: string
+    enum:
+      - FEDEX
