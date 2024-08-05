@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.11.0-feature-preknowledge-flag.3
+  version: 5.11.0-feature-preknowledge-flag.4
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -41,7 +41,7 @@ definitions:
         description: 'Instance of the device'
       preknowledge:
         type: boolean
-        description: "Electronic data interchange information\n- **true**: EDI data was used or confirmed during enrichment\n- **false**: No EDI Data was available, deeper coding results could be achieved or other coding results are provided in enrichment"
+        description: "Electronic data interchange information\n- **true**:\n   - EDI was used for this coding workflow and the address did not change\n   - EDI has been confirmed in the current enrichment\n   - EDI has been used but the current enrichment provided an even better result (same and better keys found)\n- **false**:\n   - No EDI was available\n   - Current enrichment provided different result (different keys found)"
       sortingUnit:
         $ref: 'CodedSortingUnit'
         description: 'Sorting unit where the mailpiece was being processed'
@@ -51,7 +51,6 @@ definitions:
     required:
       - producer
       - instance
-      - preknowledge
       - sortingUnit
     additionalProperties: false
     description: "Describes which system provided the information. This is meant to be used for diagnositcs\nand should not be used to infer any business cases."
