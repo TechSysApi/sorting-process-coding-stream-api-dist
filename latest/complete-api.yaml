@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.10.0
+  version: 5.11.0-feature-manual-sorting.1
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -968,7 +968,8 @@ definitions:
       - MANUAL_CODING_LIGHT
       - MANUAL_CODING_BULK
       - MANUAL_CODING_BULK_AUTOMATIC
-    description: "AUTOMATIC Sorted by the sorter\nMANUAL_CODING_REJECT Device where a coder manually captures barcodes and enters address information\nMANUAL_CODING_LIGHT Device where barcodes barcodes, products and the weight is captured (manual or partially automated)\nMANUAL_CODING_BULK Device where barcodes, weight and dimensions and address information for bulky goods are captured or entered (manual or partially automated)\nMANUAL_CODING_BULK_AUTOMATIC Device where a coder manually captures barcodes and other specific information for bulky goods"
+      - MANUAL_SORTING
+    description: "AUTOMATIC Sorted by the sorter\nMANUAL_CODING_REJECT Device where a coder manually captures barcodes and enters address information\nMANUAL_CODING_LIGHT Device where barcodes barcodes, products and the weight is captured (manual or partially automated)\nMANUAL_CODING_BULK Device where barcodes, weight and dimensions and address information for bulky goods are captured or entered (manual or partially automated)\nMANUAL_CODING_BULK_AUTOMATIC Device where a coder manually captures barcodes and other specific information for bulky goods\nMANUAL_SORTING Mailpieces are sorted manually to the correct outlet. Similar to AUTOMATIC, but the mailpiece is transported by a human instead of a sorting unit"
   CodedSortingUnit:
     type: object
     properties:
