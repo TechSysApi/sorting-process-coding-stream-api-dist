@@ -5,7 +5,7 @@ info:
   contact:
     name: 'erkennen codieren pakete'
     email: erkennen.codieren.pakete@post.ch
-  version: 5.10.0
+  version: 5.11.0
 host: 'server:8080'
 basePath: logistics.sorting.process.coding
 paths:
@@ -29,7 +29,8 @@ definitions:
       - MANUAL_CODING_REJECT
       - MANUAL_CODING_BULK
       - MANUAL_CODING_BULK_SCANNING
-    description: "PREANNOUNCEMENT  Component which validates and publishes preannouncement data\nRECOGNITION_ADDRESS  Component which reads address elements on an image\nRECOGNITION_ADDRESS_RETRY    Component which reads address elements on an image in a following workflow (e.g. after VCS ROI or VCS Postcode)\nVIDEO_CODING_ADDRESS Component where address information is remotely captured or entered by a coder based on an image\nMANUAL_CODING_REJECT Component where barcodes, weight, dimensions and address information are captured or entered (manually)\nMANUAL_CODING_BULK   Component where barcodes, weight, dimensions and address information for bulky goods are captured or entered (manually or partially automated)\nMANUAL_CODING_BULK_SCANNING Component where a coder manually captures barcodes and other specific information for bulky goods"
+      - MANUAL_SORTING
+    description: "PREANNOUNCEMENT  Component which validates and publishes preannouncement data\nRECOGNITION_ADDRESS  Component which reads address elements on an image\nRECOGNITION_ADDRESS_RETRY    Component which reads address elements on an image in a following workflow (e.g. after VCS ROI or VCS Postcode)\nVIDEO_CODING_ADDRESS Component where address information is remotely captured or entered by a coder based on an image\nMANUAL_CODING_REJECT Component where barcodes, weight, dimensions and address information are captured or entered (manually)\nMANUAL_CODING_BULK   Component where barcodes, weight, dimensions and address information for bulky goods are captured or entered (manually or partially automated)\nMANUAL_CODING_BULK_SCANNING Component where a coder manually captures barcodes and other specific information for bulky goods\nMANUAL_SORTING Component where Mailpieces are sorted manually to the correct outlet"
   CodedAddressSource:
     type: object
     properties:
@@ -312,7 +313,8 @@ definitions:
       - MANUAL_CODING_REJECT
       - MANUAL_CODING_BULK
       - MANUAL_CODING_BULK_SCANNING
-    description: "IMAGE_CONTROLLER Component which is responsible for the internal enrichment workflow of the coding systems (PieceManager)\nMANUAL_CODING_REJECT Component where barcodes, weight, dimensions and address information are captured or entered (manually)\nMANUAL_CODING_BULK   Component where barcodes, weight, dimensions and address information for bulky goods are captured or entered (manually or partially automated)\nMANUAL_CODING_BULK_SCANNING Component where a coder manually captures barcodes and other specific information for bulky goods"
+      - MANUAL_SORTING
+    description: "IMAGE_CONTROLLER Component which is responsible for the internal enrichment workflow of the coding systems (PieceManager)\nMANUAL_CODING_REJECT Component where barcodes, weight, dimensions and address information are captured or entered (manually)\nMANUAL_CODING_BULK   Component where barcodes, weight, dimensions and address information for bulky goods are captured or entered (manually or partially automated)\nMANUAL_CODING_BULK_SCANNING Component where a coder manually captures barcodes and other specific information for bulky goods\nMANUAL_SORTING Component where Mailpieces are sorted manually to the correct outlet"
   CodedEventSource:
     type: object
     properties:
@@ -455,7 +457,8 @@ definitions:
       - MANUAL_CODING_REJECT
       - MANUAL_CODING_BULK
       - MANUAL_CODING_BULK_SCANNING
-    description: "PREANNOUNCEMENT  Component which validates and publishes preannouncement data\nDIMENSIONING_WEIGHTING_SCANNING Component which reads barcodes, captures dimensions and weights the parcel\nOCR_BARCODE  Component which reads / captures barcodes on an image\nMANUAL_CODING_REJECT Component where barcodes, weight, dimensions and address information are captured or entered (manually)\nMANUAL_CODING_BULK   Component where barcodes, weight, dimensions and address information for bulky goods are captured or entered (manually or partially automated)\nMANUAL_CODING_BULK_SCANNING Component where a coder manually captures barcodes and other specific information for bulky goods"
+      - MANUAL_SORTING
+    description: "PREANNOUNCEMENT  Component which validates and publishes preannouncement data\nDIMENSIONING_WEIGHTING_SCANNING Component which reads barcodes, captures dimensions and weights the parcel\nOCR_BARCODE  Component which reads / captures barcodes on an image\nMANUAL_CODING_REJECT Component where barcodes, weight, dimensions and address information are captured or entered (manually)\nMANUAL_CODING_BULK   Component where barcodes, weight, dimensions and address information for bulky goods are captured or entered (manually or partially automated)\nMANUAL_CODING_BULK_SCANNING Component where a coder manually captures barcodes and other specific information for bulky goods\nMANUAL_SORTING Component where Mailpieces are sorted manually to the correct outlet"
   CodedInformationCarrierSource:
     type: object
     properties:
@@ -747,7 +750,8 @@ definitions:
       - MANUAL_CODING_BULK
       - MANUAL_CODING_BULK_SCANNING
       - SORTING
-    description: "PREANNOUNCEMENT  Component which validates and publishes preannouncement data\nRECOGNITION_BARCODE  Component which reads / captures barcodes on an image\nDIMENSIONING_WEIGHTING_SCANNING Component which reads barcodes, captures dimensions and weights the parcel\nMANUAL_CODING_REJECT Component where barcodes, weight, dimensions and address information are captured or entered (manually)\nMANUAL_CODING_BULK   Component where barcodes, weight, dimensions and address information for bulky goods are captured or entered (manually or partially automated)\nMANUAL_CODING_BULK_SCANNING Component where a coder manually captures barcodes and other specific information for bulky goods\nSORTING Sorting component which delivered a product"
+      - MANUAL_SORTING
+    description: "PREANNOUNCEMENT  Component which validates and publishes preannouncement data\nRECOGNITION_BARCODE  Component which reads / captures barcodes on an image\nDIMENSIONING_WEIGHTING_SCANNING Component which reads barcodes, captures dimensions and weights the parcel\nMANUAL_CODING_REJECT Component where barcodes, weight, dimensions and address information are captured or entered (manually)\nMANUAL_CODING_BULK   Component where barcodes, weight, dimensions and address information for bulky goods are captured or entered (manually or partially automated)\nMANUAL_CODING_BULK_SCANNING Component where a coder manually captures barcodes and other specific information for bulky goods\nSORTING Sorting component which delivered a product\nMANUAL_SORTING Component where Mailpieces are sorted manually to the correct outlet"
   CodedProductSource:
     type: object
     properties:
@@ -968,7 +972,8 @@ definitions:
       - MANUAL_CODING_LIGHT
       - MANUAL_CODING_BULK
       - MANUAL_CODING_BULK_AUTOMATIC
-    description: "AUTOMATIC Sorted by the sorter\nMANUAL_CODING_REJECT Device where a coder manually captures barcodes and enters address information\nMANUAL_CODING_LIGHT Device where barcodes barcodes, products and the weight is captured (manual or partially automated)\nMANUAL_CODING_BULK Device where barcodes, weight and dimensions and address information for bulky goods are captured or entered (manual or partially automated)\nMANUAL_CODING_BULK_AUTOMATIC Device where a coder manually captures barcodes and other specific information for bulky goods"
+      - MANUAL_SORTING
+    description: "AUTOMATIC Sorted by the sorter\nMANUAL_CODING_REJECT Device where a coder manually captures barcodes and enters address information\nMANUAL_CODING_LIGHT Device where barcodes barcodes, products and the weight is captured (manual or partially automated)\nMANUAL_CODING_BULK Device where barcodes, weight and dimensions and address information for bulky goods are captured or entered (manual or partially automated)\nMANUAL_CODING_BULK_AUTOMATIC Device where a coder manually captures barcodes and other specific information for bulky goods\nMANUAL_SORTING Mailpieces are sorted manually to the correct outlet. Similar to AUTOMATIC, but the mailpiece is transported by a human instead of a sorting unit"
   CodedSortingUnit:
     type: object
     properties:
