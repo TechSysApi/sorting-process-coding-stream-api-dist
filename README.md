@@ -27,3 +27,4 @@
 - [v5.10.0](https://TechSysApi.github.io/sorting-process-coding-stream-api-dist/v5.10.0/ui/?url=../complete-api.yaml)
 - [v5.11.0](https://TechSysApi.github.io/sorting-process-coding-stream-api-dist/v5.11.0/ui/?url=../complete-api.yaml)
 - [v5.12.0](https://TechSysApi.github.io/sorting-process-coding-stream-api-dist/v5.12.0/ui/?url=../complete-api.yaml)
+- [v5.13.0](https://TechSysApi.github.io/sorting-process-coding-stream-api-dist/v5.13.0/ui/?url=../complete-api.yaml)
